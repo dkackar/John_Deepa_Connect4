@@ -17,3 +17,18 @@ class Disk
   end
 
 end
+
+
+=begin
+  
+Class: Disk
+    owner                         # from the attr_accessor
+    owner=(new_value)             # from the attr_accessor
+
+    //PRIVATE IGNORE
+    make_player_1_disk
+    make_player_2_disk
+
+    new
+  
+=end

@@ -1,5 +1,5 @@
 
-require "./disk"
+require_relative "./disk"
 
 class Board
   NUM_ROWS = 6
@@ -104,7 +104,8 @@ class Board
   #checks array for connect 4
   def check_connect_four?(arr)
     #checks for full array
-    return false if arr.any? (& :nil)   
+    return false if arr.any? {|square| square.nil?}
+
     #if array is full then check for winner
     return true if arr.all? { |square| square.owner == "1" }
     return true if arr.all? { |square| square.owner == "2" }
@@ -150,3 +151,27 @@ class Board
 
 
 end
+
+
+=begin
+  
+Class: Board
+    board                         # from the attr_accessor
+    board=(new_value)             # from the attr_accessor
+    empty_board
+    render
+    valid_move?(player_input)     #player-input = column, returns false
+                                  #if column is full
+    place_disk(disk,column)  
+  
+    win_conditions?               #true: if connect 4 exists and game ends
+
+    check_rows                    #true/false:check for connect 4 along rows
+    check_cols
+    check_diagonals
+
+    check_connect_four?(arr)      #true/false:
+    grid_full                     #true/false:
+    dup                           #returns board copy (object)
+    winning_move                  #col/nil
+=end

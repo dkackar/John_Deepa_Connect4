@@ -1,5 +1,5 @@
 
-require "./board.rb"
+require_relative "./board.rb"
 
 class Computer
 
@@ -14,3 +14,13 @@ class Computer
    end
 
 end
+
+
+=begin
+  
+Class: Computer
+    board                         # from the attr_accessor
+    board=(new_value)             # from the attr_accessor
+    
+    move             
+=end  

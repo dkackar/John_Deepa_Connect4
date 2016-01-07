@@ -1,6 +1,6 @@
-require './computer.rb'
-require './board.rb'
-require './disk.rb'
+require_relative './computer.rb'
+require_relative './board.rb'
+require_relative './disk.rb'
 
 require "highline"
 CLI = HighLine.new
@@ -102,3 +102,18 @@ end
 
 game = ConnectFour.new
 game.play
+
+
+
+
+=begin
+  
+Class: ConnectFour
+    board                         # from the attr_accessor
+    board=(new_value)             # from the attr_accessor
+
+    print_intro
+    play
+    end_conditions?               #true/false:
+    get_user_input                              ll
+=end
