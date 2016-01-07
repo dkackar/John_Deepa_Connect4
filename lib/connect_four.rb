@@ -6,6 +6,8 @@ require "highline"
 CLI = HighLine.new
 
 class ConnectFour
+  attr_accessor :board, :current_player, :opponent
+
   def initialize
     @board = Board.new
     @current_player = true
@@ -101,7 +103,7 @@ class ConnectFour
 end
 
 game = ConnectFour.new
-game.play
+#game.play
 
 
 

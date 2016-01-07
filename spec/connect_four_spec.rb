@@ -1,16 +1,17 @@
 
 require "connect_four"
 
-describe "test test" do 
+describe "ConnectFour" do 
     
-  let(:board){ Board.new}
+  let(:game){ ConnectFour.new}
 
   describe '.creates an empty board' do
 
     it 'should give you a Board' do
-      expect(board).to be_a(Board)
+      expect(game.board).to be_a(Board)
     end
-
-  end
-
+    it 'should give you a Board' do
+      expect(game.board).to be_a(Board)
+    end
+  end  
 end    
