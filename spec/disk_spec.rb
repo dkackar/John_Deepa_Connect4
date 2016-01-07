@@ -12,8 +12,12 @@ describe "test test" do
 
     describe '.initialize with owner' do
 
-      it 'should give you a disk' do
+      it 'should raise error with new' do
         expect {disk = Disk.new("Test")}.to raise_error(NoMethodError)   
+      end
+
+      it 'should build correctly with make_player_1_disk' do
+        expect( Disk.make_player_1_disk ).to be_a( Disk )   
       end
 
     end
