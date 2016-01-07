@@ -24,6 +24,35 @@ describe "test test" do
         expect( this_board.board[0][3]).to be_a(Disk)
     end
 
+    it "check connect four" do 
+        this_board.place_disk(Disk.make_player_1_disk,3)
+        this_board.place_disk(Disk.make_player_1_disk,4)
+        this_board.place_disk(Disk.make_player_2_disk,5)
+        this_board.place_disk(Disk.make_player_1_disk,6)
+        my_array = []
+        my_array << this_board.board[0][3]
+        my_array << this_board.board[0][4]
+        my_array << this_board.board[0][5]
+        my_array << this_board.board[0][6]
+
+
+        this_board.place_disk(Disk.make_player_2_disk,3)
+        this_board.place_disk(Disk.make_player_2_disk,4)
+        this_board.place_disk(Disk.make_player_2_disk,5)
+        this_board.place_disk(Disk.make_player_2_disk,6)
+        my_array2 = []
+        my_array2 << this_board.board[1][3]
+        my_array2 << this_board.board[1][4]
+        my_array2 << this_board.board[1][5]
+        my_array2 << this_board.board[1][6]
+
+ 
+        #method does check that all disks have the same owner
+        expect( this_board.check_connect_four?( my_array )).to eq(false)
+        expect( this_board.check_connect_four?( my_array2 )).to eq(true)
+        my_array2 << this_board.board[0][5]
+        expect( this_board.check_connect_four?( my_array2 )).to eq(false)
+    end
 
     it "should fail if column is full" do
         Board::NUM_ROWS.times do
@@ -105,5 +134,37 @@ describe "test test" do
         
         expect( this_board.check_diagonals).to eq(true)
 
+    end
+
+    it "should check for grid_full?" do
+        (Board::NUM_ROWS - 1).times do
+            (0..6).each do | i |
+                this_board.place_disk( Disk.make_player_1_disk, i )
+            end
+        end
+        expect( this_board.grid_full? ).to eq(false)
+        (0..6).each do | i |
+            this_board.place_disk( Disk.make_player_1_disk, i )
+        end
+        expect( this_board.grid_full? ).to eq(true)
+
+    end
+
+    it "should check object copy" do
+
+        copy = this_board.dup
+        ret_val_bool = true
+
+       (0...Board::NUM_ROWS).each do |row|
+          (0...Board::NUM_COLS).each do |col|
+            if this_board.board[row][col]
+                ret_val_bool && this_board.board[row][col].owner == copy.board[row][col].owner
+            else
+                ret_val_bool && this_board.board[row][col] == copy.board[row][col]
+            end               
+          end
+       end
+
+        expect( ret_val_bool ).to eq(true)
     end
 end

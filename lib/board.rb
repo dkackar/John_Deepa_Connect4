@@ -103,6 +103,8 @@ class Board
 
   #checks array for connect 4
   def check_connect_four?(arr)
+    return false if arr.length != FOUR
+
     #checks for full array
     return false if arr.any? {|square| square.nil?}
 
