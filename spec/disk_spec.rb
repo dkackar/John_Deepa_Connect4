@@ -20,5 +20,9 @@ describe "test test" do
         expect( Disk.make_player_1_disk ).to be_a( Disk )   
       end
 
+      it 'should assign correct owner' do
+        expect( Disk.make_player_1_disk.owner ).to eq( "1" )   
+      end
+
     end
 end
