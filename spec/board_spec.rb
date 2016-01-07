@@ -18,6 +18,13 @@ describe "test test" do
         expect( this_board.valid_move?( 4 ) ).to eq(true)
     end
 
+    it "place disk is ok when new disk placed" do 
+        expect( this_board.board[0][3]).to eq(nil)
+        this_board.place_disk(Disk.make_player_1_disk,3)
+        expect( this_board.board[0][3]).to be_a(Disk)
+    end
+
+
     it "should fail if column is full" do
         Board::NUM_ROWS.times do
             this_board.place_disk( Disk.make_player_1_disk, 4 )
@@ -28,5 +35,75 @@ describe "test test" do
         expect( this_board.valid_move?( 5 ) ).to eq(false)
     end
 
+    it "should check row correctly" do
+   
+        this_board.place_disk(Disk.make_player_1_disk,2)
+        this_board.place_disk(Disk.make_player_1_disk,3)
+        this_board.place_disk(Disk.make_player_1_disk,4)
 
+        expect( this_board.check_rows).to eq(false)
+
+        this_board.place_disk(Disk.make_player_1_disk,5)
+        
+        expect( this_board.check_rows).to eq(true)
+
+    end
+
+    it "should check col correctly" do
+   
+        this_board.place_disk(Disk.make_player_1_disk,2)
+        this_board.place_disk(Disk.make_player_1_disk,2)
+        this_board.place_disk(Disk.make_player_1_disk,2)
+
+        expect( this_board.check_cols).to eq(false)
+
+        this_board.place_disk(Disk.make_player_1_disk,2)
+        
+        expect( this_board.check_cols).to eq(true)
+
+    end
+
+    it "should check upward diagonals correctly" do
+   
+        this_board.place_disk(Disk.make_player_1_disk,2)
+        this_board.place_disk(Disk.make_player_2_disk,3)
+        this_board.place_disk(Disk.make_player_1_disk,3)
+
+        this_board.place_disk(Disk.make_player_2_disk,4)
+        this_board.place_disk(Disk.make_player_2_disk,4)
+        this_board.place_disk(Disk.make_player_1_disk,4)
+
+        this_board.place_disk(Disk.make_player_2_disk,5)
+        this_board.place_disk(Disk.make_player_2_disk,5)
+        this_board.place_disk(Disk.make_player_2_disk,5)
+
+        expect( this_board.check_diagonals).to eq(false)
+        
+        this_board.place_disk(Disk.make_player_1_disk,5)
+        
+        expect( this_board.check_diagonals).to eq(true)
+
+    end
+
+    it "should check downward diagonals correctly" do
+   
+        this_board.place_disk(Disk.make_player_2_disk,2)
+        this_board.place_disk(Disk.make_player_2_disk,2)
+        this_board.place_disk(Disk.make_player_2_disk,2)
+        this_board.place_disk(Disk.make_player_1_disk,2)
+
+        this_board.place_disk(Disk.make_player_2_disk,3)
+        this_board.place_disk(Disk.make_player_2_disk,3)
+        this_board.place_disk(Disk.make_player_1_disk,3)
+
+        this_board.place_disk(Disk.make_player_2_disk,4)
+        this_board.place_disk(Disk.make_player_1_disk,4)
+
+        expect( this_board.check_diagonals).to eq(false)
+        
+        this_board.place_disk(Disk.make_player_1_disk,5)
+        
+        expect( this_board.check_diagonals).to eq(true)
+
+    end
 end
