@@ -25,42 +25,49 @@ class ConnectFour
     puts
   end
 
+  def get_human_player_action
+      player_move = get_user_input
+      until @board.valid_move? ( player_move )
+          player_move = get_user_input
+      end
+      player_move
+  end
+
+  def get_computer_action
+      @opponent.board = @board
+      #computer makes move
+      player_move = @opponent.move
+      until @board.valid_move? ( player_move )
+          player_move = @opponent.move
+      end
+      player_move
+  end
+
+  def get_player_action
+      if @current_player || @opponent == "2"
+        get_human_player_action
+     else
+        get_computer_action
+     end
+  end
+
+  def process_move(player_move)
+        if @current_player
+          @board.place_disk( Disk.make_player_1_disk,  player_move  - 1)
+        else
+          @board.place_disk( Disk.make_player_2_disk, player_move  - 1 )
+        end
+  end
+
   def play
     print_intro
 
     loop do
-      #prints board
       @board.render
-      #prints current player turn
-      puts @current_player  ?  "Player 1's  turn" : "Player 2's turn"
-      #obtain valid user move
-
-      if @current_player || @opponent == "2"
-          player_move = get_user_input
-          until @board.valid_move? ( player_move )
-              player_move = get_user_input
-          end
-      else
-          #sends board state to computer instance
-          @opponent.board = @board
-          #computer makes move
-          player_move = @opponent.move
-          until @board.valid_move? ( player_move )
-              player_move = @opponent.move
-          end
-       end
-
-      #process move and update board
-      if @current_player
-        @board.place_disk( Disk.make_player_1_disk,  player_move  - 1)
-      else
-        @board.place_disk( Disk.make_player_2_disk, player_move  - 1 )
-      end
-      #check end game conditions (winner or full board)
+      player_move = get_player_action
+      process_move( player_move)
       break if end_conditions?
-      #swap turns
       @current_player = !@current_player
-      #clear screen
       system("clear")
     end
   end
@@ -89,6 +96,8 @@ class ConnectFour
   #obtain valid user move
   def get_user_input
     loop do
+        puts @current_player  ?  "Player 1's  turn" : "Player 2's turn"
+
         input = CLI.ask "Please enter a valid column from 1 to 7:"
         case input
         when /^[1-7]$/
@@ -102,8 +111,6 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
-#game.play
 
 
 

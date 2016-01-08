@@ -5,7 +5,7 @@ describe "ConnectFour" do
     
   let(:game){ ConnectFour.new}
 
-  describe '.creates an empty board' do
+  describe "main game tests" do
 
     it 'should give you a Board' do
       expect(game.board).to be_a(Board)
@@ -25,5 +25,16 @@ describe "ConnectFour" do
           expect(game.opponent).to be_a(Computer)
        end
    end
+  
+    it "check end conditions" do
+        game.board.place_disk(Disk.make_player_1_disk,3)
+        game.board.place_disk(Disk.make_player_1_disk,4)
+        game.board.place_disk(Disk.make_player_1_disk,5)
+        expect(game.end_conditions?).to eq(false)
+        game.board.place_disk(Disk.make_player_1_disk,6)
+
+        expect(game.end_conditions?).to eq(true)
+    end
+
   end  
 end    
