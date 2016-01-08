@@ -36,5 +36,17 @@ describe "ConnectFour" do
         expect(game.end_conditions?).to eq(true)
     end
 
+    it 'should process move for player 2' do
+      game.current_player = false
+      game.process_move(3)
+      expect(game.board.board[0][2].owner).to eq("2")
+    end
+
+    it 'should process move for player 1' do
+      game.current_player = true
+      game.process_move(3)
+      expect(game.board.board[0][2].owner).to eq("1")
+    end
+
   end  
 end    
